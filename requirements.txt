@@ -1,0 +1,5 @@
+comtypes==1.1.11
+psutil==5.9.5
+websockets==11.0.3
+openai==0.27.8
+PySide6==6.5.2
