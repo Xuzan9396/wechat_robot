@@ -1,6 +1,6 @@
 # wechat_robot
 WeChat 机器人，python + websocket + go 实现
-项目地址 : [https://github.com/Xuzan9396/wechat_robot] (https://github.com/Xuzan9396/wechat_robot)
+项目地址 : [https://github.com/Xuzan9396/wechat_robot](https://github.com/Xuzan9396/wechat_robot)
 ## 步骤
 
 1. **系统准备**: 准备 Windows 系统，可以选择腾讯云服务器,或者win10。
