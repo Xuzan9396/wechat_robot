@@ -74,4 +74,7 @@ mac 系统 amd64 架构的
 ![wechat](https://github.com/Xuzan9396/wechat_robot/assets/24741439/f57b43ad-c116-44b5-9658-e34898152cdd)
 
 
+## 其他
+ `除了发消息，还有其他功能，有需求的去看源码吧`
+
 [依赖库 https://github.com/ljc545w/ComWeChatRobot](https://github.com/ljc545w/ComWeChatRobot)
