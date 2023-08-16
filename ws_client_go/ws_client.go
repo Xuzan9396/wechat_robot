@@ -12,15 +12,23 @@ import (
 	"time"
 )
 
-var addrs = flag.String("addr", "服务器地址:12725", "ws 服务器地址")
-var wxid = flag.String("wxid", "需要发送的wxid", "测试发送给这个微信号ID")
-var ws_auth = flag.String("ws_auth", "Bearer gui里面的token", "ws 服务器认证信息")
+var addrs = flag.String("addr", "", "ws 服务器地址:xxx")
+var wxid = flag.String("wxid", "", "测试发送给这个微信号ID")
+var ws_auth = flag.String("ws_auth", "", "Bearer gui里面的token")
 var ws_path = flag.String("ws_path", "/", "ws 服务器路径")
 
 func main() {
 
 	flag.Parse()
 	log.SetFlags(0)
+	log.Println("addr:", *addrs)
+	log.Println("wxid:", *wxid)
+	log.Println("ws_auth:", *ws_auth)
+	log.Println("ws_path:", *ws_path)
+	if *addrs == "" || *ws_path == "" || *ws_auth == "" {
+		log.Println("参数不正确")
+		return
+	}
 
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
@@ -28,7 +36,7 @@ func main() {
 	u := url.URL{Scheme: "ws", Host: *addrs, Path: *ws_path}
 	log.Printf("connecting to %s", u.String())
 	c, _, err := websocket.DefaultDialer.Dial(u.String(), http.Header{
-		"Authorization": []string{fmt.Sprintf("Bearer %s", ws_auth)},
+		"Authorization": []string{fmt.Sprintf("Bearer %s", *ws_auth)},
 	})
 	if err != nil {
 		log.Fatal("dial:", err)
@@ -47,13 +55,15 @@ func main() {
 		select {
 		case <-timer.C:
 			// 认证登录
-			err := c.WriteMessage(websocket.BinaryMessage, byPing)
-			if err != nil {
-				log.Println("write:", err)
-				timer.Stop()
-				return
+			if *wxid != "" {
+				err := c.WriteMessage(websocket.BinaryMessage, byPing)
+				if err != nil {
+					log.Println("write:", err)
+					timer.Stop()
+					return
+				}
+				log.Println("消息发送成功:", string(byPing))
 			}
-			log.Println("消息发送成功:", string(byPing))
 			timer.Stop()
 
 		case <-interrupt:
