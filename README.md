@@ -20,10 +20,18 @@ WeChat 机器人，python + websocket + go 实现
       pip install -r requirements.txt 
       python main.py
       ```
-    - GUI 程序启动:
+   - 也可以自己打包gui
+   - 打包命令
+     ```bash
+     pyinstaller -F -w --icon=ui/img/wechat.ico main.py
+     ```
+     
+   
+    - 或者使用我打包好的，在项目wechat_gui目录可以测试,GUI 程序启动:
       ```bash
       wechat_gui.exe
       ```
+   
 
 4. **WebSocket 通信配置**: GUI页面是通过 WebSocket 协议传输。
     - WebSocket 端口
